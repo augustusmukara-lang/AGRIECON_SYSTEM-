@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ farmer.farm_name or farmer.username }} - Public Farm</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <section class="public-header">
+        <div class="container">
+            <h1 class="public-title">{{ farmer.farm_name or "Farm Profile" }}</h1>
+            <p class="public-subtitle">Public Agricultural Profile</p>
+        </div>
+    </section>
+
+    <main class="container public-grid">
+        <aside class="public-sidebar card">
+            <div class="profile-photo-box">
+                {% if farmer.profile_photo %}
+                <img src="{{ url_for('download_file', folder='profile', filename=farmer.profile_photo) }}"
+                    class="profile-image" alt="Farm Profile">
+                {% else %}
+                <img src="https://via.placeholder.com/150" class="profile-image" alt="Farm Profile">
+                {% endif %}
+                <h2>{{ farmer.full_name or farmer.username }}</h2>
+                <p class="public-username">@{{ farmer.username }}</p>
+            </div>
+
+            <div class="public-contact-box">
+                <div class="meta-item"><span class="meta-label">Location</span><span class="meta-value">{{
+                        farmer.location or "Not set" }}</span></div>
+                <div class="meta-item"><span class="meta-label">Farm Size</span><span class="meta-value">{{
+                        farmer.farm_size or "Not set" }}</span></div>
+                <div class="meta-item"><span class="meta-label">Enterprise</span><span class="meta-value">{{
+                        farmer.enterprise_type or "Not set" }}</span></div>
+            </div>
+        </aside>
+
+        <section class="public-main">
+            <section class="card">
+                <h2>About the Farm</h2>
+                <p>{{ farmer.bio or "No farm description available yet." }}</p>
+            </section>
+
+            <section class="card">
+                <h2>Recent Harvest Records</h2>
+                <div class="table-wrapper">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Crop</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in harvests %}
+                            <tr>
+                                <td>{{ row.crop_name }}</td>
+                                <td>{{ row.quantity }}</td>
+                                <td>{{ row.unit }}</td>
+                                <td>{{ row.harvest_date }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="4">No harvest records available.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Recent Sales</h2>
+                <div class="table-wrapper">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Price/Unit</th>
+                                <th>Market</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in sales %}
+                            <tr>
+                                <td>{{ row.product_name }}</td>
+                                <td>{{ row.quantity }} {{ row.unit }}</td>
+                                <td>KSh {{ "%.2f"|format(row.price_per_unit) }}</td>
+                                <td>{{ row.market }}</td>
+                                <td>{{ row.sale_date }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5">No sales records available.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Contact the Farmer</h2>
+
+                {% if success %}
+                <div class="success-message">{{ success }}</div>
+                {% endif %}
+
+                <form method="POST" class="contact-form">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Your Name</label><input type="text" name="visitor_name" required>
+                        </div>
+                        <div class="form-group"><label>Your Email</label><input type="email" name="visitor_email"
+                                required></div>
+                    </div>
+                    <div class="form-group"><label>Subject</label><input type="text" name="subject" required></div>
+                    <div class="form-group"><label>Message</label><textarea name="message" required></textarea></div>
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
+            </section>
+        </section>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container" style="padding:2rem 0;">
+        <h1>Data Analytics Dashboard</h1>
+
+        <div class="upload-grid">
+            {% if sales_chart %}
+            <div class="card">
+                <h3>Sales Trend Chart</h3>
+                <img src="{{ url_for('static', filename='charts/' + sales_chart) }}" alt="Sales Chart">
+            </div>
+            {% endif %}
+
+            {% if cost_chart %}
+            <div class="card">
+                <h3>Input Cost Trend Chart</h3>
+                <img src="{{ url_for('static', filename='charts/' + cost_chart) }}" alt="Cost Chart">
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="card" style="margin-top:1.5rem;">
+            <h2>Regression Analysis</h2>
+            {% if regression_result %}
+            <p><strong>Regression Equation:</strong> {{ regression_result.equation }}</p>
+            <p><strong>Correlation:</strong> {{ regression_result.correlation }}</p>
+            {% else %}
+            <p>No enough market data yet for regression.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>

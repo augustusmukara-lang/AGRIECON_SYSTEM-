@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container" style="padding:2rem 0;">
+        <div class="card">
+            <h2>Add Market Record</h2>
+            <form method="POST" class="profile-form">
+                <div class="form-grid">
+                    <div class="form-group"><label>Product Name</label><input type="text" name="product_name" required>
+                    </div>
+                    <div class="form-group"><label>Market Name</label><input type="text" name="market_name" required>
+                    </div>
+                    <div class="form-group"><label>Price</label><input type="number" step="0.01" name="price" required>
+                    </div>
+                    <div class="form-group"><label>Quantity Supplied</label><input type="number" step="0.01"
+                            name="quantity_supplied" required></div>
+                    <div class="form-group"><label>Quantity Demanded</label><input type="number" step="0.01"
+                            name="quantity_demanded" required></div>
+                    <div class="form-group"><label>Date Recorded</label><input type="date" name="date_recorded"
+                            required></div>
+                </div>
+                <button type="submit" class="btn-primary">Save Market Record</button>
+            </form>
+        </div>
+
+        <div class="card" style="margin-top:1.5rem;">
+            <h2>Market Records</h2>
+            <a href="{{ url_for('export_csv', table_name='market') }}" class="btn-small">Export Excel (CSV)</a>
+            <div class="table-wrapper">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Market</th>
+                            <th>Price</th>
+                            <th>Supplied</th>
+                            <th>Demanded</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in records %}
+                        <tr>
+                            <td>{{ row.product_name }}</td>
+                            <td>{{ row.market_name }}</td>
+                            <td>KSh {{ "%.2f"|format(row.price) }}</td>
+                            <td>{{ row.quantity_supplied }}</td>
+                            <td>{{ row.quantity_demanded }}</td>
+                            <td>{{ row.date_recorded }}</td>
+                            <td><a href="{{ url_for('delete_record', table='market', item_id=row.id) }}"
+                                    class="btn-small danger">Delete</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7">No market records yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

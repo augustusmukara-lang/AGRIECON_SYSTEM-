@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container" style="padding:2rem 0;">
+        <div class="card">
+            <h2>Add Sales Record</h2>
+            <form method="POST" class="profile-form">
+                <div class="form-grid">
+                    <div class="form-group"><label>Product Name</label><input type="text" name="product_name" required>
+                    </div>
+                    <div class="form-group"><label>Quantity</label><input type="number" step="0.01" name="quantity"
+                            required></div>
+                    <div class="form-group"><label>Unit</label><input type="text" name="unit" required></div>
+                    <div class="form-group"><label>Price per Unit</label><input type="number" step="0.01"
+                            name="price_per_unit" required></div>
+                    <div class="form-group"><label>Buyer</label><input type="text" name="buyer"></div>
+                    <div class="form-group"><label>Market</label><input type="text" name="market"></div>
+                    <div class="form-group"><label>Sale Date</label><input type="date" name="sale_date" required></div>
+                </div>
+                <button type="submit" class="btn-primary">Save Sale</button>
+            </form>
+        </div>
+
+        <div class="card" style="margin-top:1.5rem;">
+            <h2>Sales Records</h2>
+            <a href="{{ url_for('export_csv', table_name='sales') }}" class="btn-small">Export Excel (CSV)</a>
+            <div class="table-wrapper">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                            <th>Price/Unit</th>
+                            <th>Total Sales</th>
+                            <th>Buyer</th>
+                            <th>Market</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in records %}
+                        <tr>
+                            <td>{{ row.product_name }}</td>
+                            <td>{{ row.quantity }}</td>
+                            <td>{{ row.unit }}</td>
+                            <td>KSh {{ "%.2f"|format(row.price_per_unit) }}</td>
+                            <td>KSh {{ "%.2f"|format(row.total_sales) }}</td>
+                            <td>{{ row.buyer }}</td>
+                            <td>{{ row.market }}</td>
+                            <td>{{ row.sale_date }}</td>
+                            <td><a href="{{ url_for('delete_record', table='sales', item_id=row.id) }}"
+                                    class="btn-small danger">Delete</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="9">No sales records yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

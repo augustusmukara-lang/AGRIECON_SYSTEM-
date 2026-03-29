@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inputs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container" style="padding:2rem 0;">
+        <div class="card">
+            <h2>Add Farm Input</h2>
+            <form method="POST" class="profile-form">
+                <div class="form-grid">
+                    <div class="form-group"><label>Input Name</label><input type="text" name="input_name" required>
+                    </div>
+                    <div class="form-group"><label>Quantity</label><input type="number" step="0.01" name="quantity"
+                            required></div>
+                    <div class="form-group"><label>Unit</label><input type="text" name="unit" required></div>
+                    <div class="form-group"><label>Unit Cost</label><input type="number" step="0.01" name="unit_cost"
+                            required></div>
+                    <div class="form-group"><label>Supplier</label><input type="text" name="supplier"></div>
+                    <div class="form-group"><label>Date Added</label><input type="date" name="date_added" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Save Input</button>
+            </form>
+        </div>
+
+        <div class="card" style="margin-top:1.5rem;">
+            <h2>Input Records Table</h2>
+            <a href="{{ url_for('export_csv', table_name='inputs') }}" class="btn-small">Export Excel (CSV)</a>
+            <div class="table-wrapper">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                            <th>Unit Cost</th>
+                            <th>Total Cost</th>
+                            <th>Supplier</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in records %}
+                        <tr>
+                            <td>{{ row.input_name }}</td>
+                            <td>{{ row.quantity }}</td>
+                            <td>{{ row.unit }}</td>
+                            <td>KSh {{ "%.2f"|format(row.unit_cost) }}</td>
+                            <td>KSh {{ "%.2f"|format(row.total_cost) }}</td>
+                            <td>{{ row.supplier }}</td>
+                            <td>{{ row.date_added }}</td>
+                            <td><a href="{{ url_for('delete_record', table='inputs', item_id=row.id) }}"
+                                    class="btn-small danger">Delete</a></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="8">No inputs added yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

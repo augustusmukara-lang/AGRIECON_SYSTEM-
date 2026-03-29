@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container" style="padding:2rem 0;">
+        <div class="card">
+            <h1>Farm Reports</h1>
+            <p>Generate and download reports.</p>
+
+            <div class="skills-chip-wrap">
+                <a href="{{ url_for('export_pdf') }}" class="skill-chip">Download PDF Report</a>
+                <a href="{{ url_for('export_csv', table_name='inputs') }}" class="skill-chip">Inputs Excel</a>
+                <a href="{{ url_for('export_csv', table_name='sales') }}" class="skill-chip">Sales Excel</a>
+                <a href="{{ url_for('export_csv', table_name='market') }}" class="skill-chip">Market Excel</a>
+            </div>
+        </div>
+
+        <div class="upload-grid" style="margin-top:1.5rem;">
+            <div class="card stat-card"><span class="stat-number">KSh {{ "%.2f"|format(total_cost) }}</span><span
+                    class="stat-label">Total Cost</span></div>
+            <div class="card stat-card"><span class="stat-number">KSh {{ "%.2f"|format(total_revenue) }}</span><span
+                    class="stat-label">Total Revenue</span></div>
+            <div class="card stat-card"><span class="stat-number">KSh {{ "%.2f"|format(total_profit) }}</span><span
+                    class="stat-label">Total Profit</span></div>
+        </div>
+    </div>
+</body>
+
+</html>

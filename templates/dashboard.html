@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AgriEcon DSS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <div class="brand">
+                <h1>AgriEcon DSS</h1>
+                <p class="brand-sub">Farmer Dashboard</p>
+            </div>
+            <nav class="main-nav">
+                <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+                <a href="{{ url_for('edit_farm') }}" class="nav-link">Edit Farm</a>
+                <a href="{{ url_for('reports') }}" class="nav-link">Reports</a>
+                <a href="{{ url_for('logout') }}" class="nav-link btn-ghost">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-grid">
+        <aside class="sidebar card">
+            <div class="profile-mini">
+                {% if farmer and farmer.profile_photo %}
+                <img src="{{ url_for('download_file', folder='profile', filename=farmer.profile_photo) }}"
+                    class="avatar" alt="Profile Photo">
+                {% else %}
+                <img src="https://via.placeholder.com/150" class="avatar" alt="Profile Photo">
+                {% endif %}
+                <h2>{{ farmer.full_name or farmer.username }}</h2>
+                <p class="muted">{{ farmer.farm_name or "No farm name yet" }}</p>
+            </div>
+
+            <div class="sidebar-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Location</span>
+                    <span class="meta-value">{{ farmer.location or "Not set" }}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Farm Size</span>
+                    <span class="meta-value">{{ farmer.farm_size or "Not set" }}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Enterprise</span>
+                    <span class="meta-value">{{ farmer.enterprise_type or "Not set" }}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Public Link</span>
+                    <span class="meta-value">/public/{{ farmer.username }}</span>
+                </div>
+            </div>
+        </aside>
+
+        <section class="main-content">
+            <section class="card hero">
+                <div class="hero-copy">
+                    <h2>Welcome to your Agricultural Economics Dashboard</h2>
+                    <p>Track your farm operations, costs, production, sales, economics and reports professionally.</p>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-number">KSh {{ "%.2f"|format(total_cost) }}</span>
+                        <span class="stat-label">Total Cost</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">KSh {{ "%.2f"|format(total_revenue) }}</span>
+                        <span class="stat-label">Total Revenue</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">KSh {{ "%.2f"|format(total_profit) }}</span>
+                        <span class="stat-label">Profit / Loss</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">{{ "%.2f"|format(total_output) }}</span>
+                        <span class="stat-label">Total Output</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="upload-grid">
+                <div class="card upload-card">
+                    <h3>Farm Records</h3>
+                    <div class="skills-chip-wrap">
+                        <a href="{{ url_for('inputs') }}" class="skill-chip">Inputs</a>
+                        <a href="{{ url_for('production') }}" class="skill-chip">Production</a>
+                        <a href="{{ url_for('labour') }}" class="skill-chip">Labour</a>
+                        <a href="{{ url_for('harvest') }}" class="skill-chip">Harvest</a>
+                        <a href="{{ url_for('sales') }}" class="skill-chip">Sales</a>
+                    </div>
+                </div>
+
+                <div class="card upload-card">
+                    <h3>Economics & Analysis</h3>
+                    <div class="skills-chip-wrap">
+                        <a href="{{ url_for('budgets') }}" class="skill-chip">Budgets</a>
+                        <a href="{{ url_for('market') }}" class="skill-chip">Market</a>
+                        <a href="{{ url_for('economics') }}" class="skill-chip">Microeconomics</a>
+                        <a href="{{ url_for('macroeconomics') }}" class="skill-chip">Macroeconomics</a>
+                        <a href="{{ url_for('analytics') }}" class="skill-chip">Analytics</a>
+                    </div>
+                </div>
+
+                <div class="card upload-card">
+                    <h3>Quick Summary</h3>
+                    <div class="sidebar-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Inputs</span>
+                            <span class="meta-value">{{ inputs_count }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Activities</span>
+                            <span class="meta-value">{{ activities_count }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Labour Entries</span>
+                            <span class="meta-value">{{ labour_count }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Sales Entries</span>
+                            <span class="meta-value">{{ sales_count }}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+</body>
+
+</html>

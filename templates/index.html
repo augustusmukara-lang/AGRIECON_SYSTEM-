@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriEcon DSS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <div class="brand">
+                <h1>AgriEcon DSS</h1>
+                <p class="brand-sub">Agricultural Economics Decision Support System</p>
+            </div>
+            <nav class="main-nav">
+                <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+                <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+                <a href="{{ url_for('register') }}" class="nav-link btn-ghost">Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="home-hero">
+        <div class="container home-hero-grid">
+            <div>
+                <h1>Manage Your Farm Like an Economist</h1>
+                <p>
+                    Record farm activities, monitor production, analyze profits, forecast market changes,
+                    and make better agricultural decisions using data.
+                </p>
+                <div class="hero-actions">
+                    <a href="{{ url_for('register') }}" class="btn-primary">Get Started</a>
+                    <a href="{{ url_for('login') }}" class="btn-small">Login</a>
+                </div>
+            </div>
+            <div class="hero-panel">
+                <h3>What this system does</h3>
+                <ul>
+                    <li>Tracks farm inputs and labour</li>
+                    <li>Monitors production and sales</li>
+                    <li>Calculates cost, revenue and profit</li>
+                    <li>Performs market and economic analysis</li>
+                    <li>Exports Excel and PDF reports</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 AgriEcon DSS</p>
+        </div>
+    </footer>
+</body>
+
+</html>

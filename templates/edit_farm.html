@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Farm</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <div class="brand">
+                <h1>AgriEcon DSS</h1>
+                <p class="brand-sub">Edit Farm Profile</p>
+            </div>
+            <nav class="main-nav">
+                <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+                <a href="{{ url_for('logout') }}" class="nav-link btn-ghost">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding: 2rem 0;">
+        <section class="card">
+            <div class="section-head">
+                <h2>Edit Farm Profile</h2>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="profile-form">
+                <div class="form-grid">
+                    <div class="form-group"><label>Full Name</label><input type="text" name="full_name"
+                            value="{{ farmer.full_name or '' }}"></div>
+                    <div class="form-group"><label>Farm Name</label><input type="text" name="farm_name"
+                            value="{{ farmer.farm_name or '' }}"></div>
+                    <div class="form-group"><label>Phone</label><input type="text" name="phone"
+                            value="{{ farmer.phone or '' }}"></div>
+                    <div class="form-group"><label>Email</label><input type="email" name="email"
+                            value="{{ farmer.email or '' }}"></div>
+                    <div class="form-group"><label>Location</label><input type="text" name="location"
+                            value="{{ farmer.location or '' }}"></div>
+                    <div class="form-group"><label>Farm Size</label><input type="text" name="farm_size"
+                            value="{{ farmer.farm_size or '' }}"></div>
+                    <div class="form-group"><label>Enterprise Type</label><input type="text" name="enterprise_type"
+                            value="{{ farmer.enterprise_type or '' }}"></div>
+                    <div class="form-group"><label>Soil Type</label><input type="text" name="soil_type"
+                            value="{{ farmer.soil_type or '' }}"></div>
+                    <div class="form-group"><label>Irrigation Type</label><input type="text" name="irrigation_type"
+                            value="{{ farmer.irrigation_type or '' }}"></div>
+                    <div class="form-group"><label>Profile Photo</label><input type="file" name="profile_photo"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Farm Bio</label>
+                    <textarea name="bio">{{ farmer.bio or '' }}</textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Save Farm Profile</button>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Farm</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <div class="brand">
+                <h1>AgriEcon DSS</h1>
+                <p class="brand-sub">Edit Farm Profile</p>
+            </div>
+            <nav class="main-nav">
+                <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+                <a href="{{ url_for('logout') }}" class="nav-link btn-ghost">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding: 2rem 0;">
+        <section class="card">
+            <div class="section-head">
+                <h2>Edit Farm Profile</h2>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="profile-form">
+                <div class="form-grid">
+                    <div class="form-group"><label>Full Name</label><input type="text" name="full_name"
+                            value="{{ farmer.full_name or '' }}"></div>
+                    <div class="form-group"><label>Farm Name</label><input type="text" name="farm_name"
+                            value="{{ farmer.farm_name or '' }}"></div>
+                    <div class="form-group"><label>Phone</label><input type="text" name="phone"
+                            value="{{ farmer.phone or '' }}"></div>
+                    <div class="form-group"><label>Email</label><input type="email" name="email"
+                            value="{{ farmer.email or '' }}"></div>
+                    <div class="form-group"><label>Location</label><input type="text" name="location"
+                            value="{{ farmer.location or '' }}"></div>
+                    <div class="form-group"><label>Farm Size</label><input type="text" name="farm_size"
+                            value="{{ farmer.farm_size or '' }}"></div>
+                    <div class="form-group"><label>Enterprise Type</label><input type="text" name="enterprise_type"
+                            value="{{ farmer.enterprise_type or '' }}"></div>
+                    <div class="form-group"><label>Soil Type</label><input type="text" name="soil_type"
+                            value="{{ farmer.soil_type or '' }}"></div>
+                    <div class="form-group"><label>Irrigation Type</label><input type="text" name="irrigation_type"
+                            value="{{ farmer.irrigation_type or '' }}"></div>
+                    <div class="form-group"><label>Profile Photo</label><input type="file" name="profile_photo"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Farm Bio</label>
+                    <textarea name="bio">{{ farmer.bio or '' }}</textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Save Farm Profile</button>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

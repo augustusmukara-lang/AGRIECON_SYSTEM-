@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microeconomics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container" style="padding:2rem 0;">
+        <h1>Microeconomics Analysis</h1>
+
+        <div class="upload-grid">
+            <div class="card stat-card"><span class="stat-number">KSh {{ "%.2f"|format(total_cost) }}</span><span
+                    class="stat-label">Total Cost</span></div>
+            <div class="card stat-card"><span class="stat-number">KSh {{ "%.2f"|format(total_revenue) }}</span><span
+                    class="stat-label">Total Revenue</span></div>
+            <div class="card stat-card"><span class="stat-number">KSh {{ "%.2f"|format(total_profit) }}</span><span
+                    class="stat-label">Profit</span></div>
+            <div class="card stat-card"><span class="stat-number">{{ "%.2f"|format(total_output) }}</span><span
+                    class="stat-label">Total Output</span></div>
+            <div class="card stat-card"><span class="stat-number">KSh {{ "%.2f"|format(average_cost) }}</span><span
+                    class="stat-label">Average Cost</span></div>
+            <div class="card stat-card"><span class="stat-number">KSh {{ "%.2f"|format(average_revenue) }}</span><span
+                    class="stat-label">Average Revenue</span></div>
+            <div class="card stat-card"><span class="stat-number">KSh {{ "%.2f"|format(profit_per_unit) }}</span><span
+                    class="stat-label">Profit Per Unit</span></div>
+            <div class="card stat-card"><span class="stat-number">{{ "%.2f"|format(break_even_output) }}</span><span
+                    class="stat-label">Break-even Output</span></div>
+            <div class="card stat-card"><span class="stat-number">{{ marginal_profit_signal }}</span><span
+                    class="stat-label">Profit Signal</span></div>
+        </div>
+    </div>
+</body>
+
+</html>
